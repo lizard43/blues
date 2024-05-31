@@ -1,0 +1,10 @@
+archive/
+node_modules/
+package-lock.json
+**/**/~*
+**/**/*.~*
+**/**/tmp*.txt
+**/**/*.bck
+**/**/*.sch-bak
+**/**/*-cache.lib
+**/**/*.kicad_pcb
