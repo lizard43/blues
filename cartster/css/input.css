@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pt-22 {
+    padding-top: 4.5rem/* 72px */;
+}
+
+.links {
+    @apply text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4 break-words;
+}

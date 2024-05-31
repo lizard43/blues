@@ -1,0 +1,17 @@
+{
+  "lang": "en",
+  "background_color": "#2c1a31",
+  "theme_color": "#2c1a31",
+  "name": "CartSter",
+  "short_name": "CartSter",
+  "display": "standalone",
+  "start_url": "index.html",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "images/home.svg",
+      "sizes": "144x144",
+      "type": "image/svg"
+    }
+  ]
+}

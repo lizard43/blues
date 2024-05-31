@@ -1,0 +1,364 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Duke's</title>
+    <meta name="description" content="Duke's Cart Controller View">
+    <meta name="keywords" content="golf, cart, data">
+    <link rel="stylesheet" href="css/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body class="bg-black">
+
+    <!-- Tabs -->
+    <div class="border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+
+            <!-- Dashboard Tab -->
+            <li class="mr-2">
+                <a id="tabDashboard" href="#" data-tab-active class="inline-flex p-2 border-b-2 border-transparent rounded-t-lg 
+                hover:text-blue-800 hover:border-blue-800  
+                data-[tab-active]:text-blue-600 data-[tab-active]:border-blue-600 
+                    group">
+                    <i class="bi bi-sliders text-lg mr-1"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <!-- Power Tab -->
+            <li class="mr-2">
+                <a id="tabPower" href="#" class="inline-flex p-2 border-b-2 border-transparent rounded-t-lg 
+                    hover:text-blue-800 hover:border-blue-800  
+                    data-[tab-active]:text-blue-600 data-[tab-active]:border-blue-600 
+                    group">
+                    <i class="bi bi-power text-lg mr-2"></i>
+                    Power
+                </a>
+            </li>
+
+            <!-- Motor Tab -->
+            <li class="mr-2">
+                <a id="tabMotor" href="#" class="inline-flex p-2 border-b-2 border-transparent rounded-t-lg 
+                    hover:text-blue-800 hover:border-blue-800  
+                    data-[tab-active]:text-blue-600 data-[tab-active]:border-blue-600 
+                    group">
+                    <i class="bi bi-rocket-takeoff text-lg mr-2"></i>Motor
+                </a>
+            </li>
+
+            <!-- Options Tab -->
+            <li class="mr-2">
+                <a id="tabOptions" href="#" class="inline-flex p-2 border-b-2 border-transparent rounded-t-lg 
+                    hover:text-blue-800 hover:border-blue-800  
+                    data-[tab-active]:text-blue-600 data-[tab-active]:border-blue-600 
+                    group">
+                    <i class="bi bi-tools text-lg mr-2"></i>Options
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <button id="bleConnect" class="hidden text-white border-2 p-1 border-red-500 
+        connect-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Bluetooth Connect
+    </button>
+
+    <!-- Dashboard Tab Content -->
+    <div id="tabDashboardContent" class="text-white m-3">
+
+        <div id="main-tabDashboardContent" class="">
+            <div class="grid grid-cols-1 md:grid-cols-3 place-items-center">
+
+                <!-- left side gauge -->
+                <div id="RPM"class="pl-5">
+                    <canvas id="rpm-id" class=""></canvas>
+                </div>
+
+                <!-- center cluster -->
+                <div class="grid grid-cols-1 place-items-center">
+
+                    <div class="grid grid-cols-1 place-items-center py-18">
+                        <label id="speedometerBig" class="text-9xl">0</label>
+                        <label class="text-xl">MPH</label>
+                    </div>
+
+                    <div class="">
+                        <canvas id="battery-id" class="my-2"></canvas>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 mt-0">
+                        <div id="alarmIndicator"
+                            class="text-gray-800 data-[alarm-one]:text-red-500 data-[alarm-two]:text-yellow-400 data-[alarm-three]:text-green-600"
+                            data-alarm-2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-wrench" viewBox="0 0 16 16">
+                                <path
+                                    d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z" />
+                            </svg>
+                        </div>
+
+                        <div id="temperatureIndicator"
+                            class="text-gray-800 data-[alarm-one]:text-red-500 data-[alarm-two]:text-yellow-400 data-[alarm-three]:text-blue-600"
+                            data-alarm-2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-thermometer-high" viewBox="0 0 16 16">
+                                <path
+                                    d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585a1.5 1.5 0 0 1 1 1.415z" />
+                                <path
+                                    d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1z" />
+                            </svg>
+                        </div>
+
+                        <div id="batteryIndicator"
+                            class="text-gray-800 data-[alarm-one]:text-red-500 data-[alarm-two]:text-yellow-400 data-[alarm-three]:text-green-600"
+                            data-alarm-2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-battery" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2zm14 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
+                            </svg>
+                        </div>
+
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 mt-2">
+                        <div id="bluetoothIndicator"
+                            class="text-gray-800 data-[bluetooth-connected]:text-green-500 data-[bluetooth-disconnected]:text-red-500 data-[bluetooth-errors]:text-yellow-400"
+                            data-bluetooth-disconnected>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-bluetooth" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="m8.543 3.948 1.316 1.316L8.543 6.58V3.948Zm0 8.104 1.316-1.316L8.543 9.42v2.632Zm-1.41-4.043L4.275 5.133l.827-.827L7.377 6.58V1.128l4.137 4.136L8.787 8.01l2.745 2.745-4.136 4.137V9.42l-2.294 2.274-.827-.827L7.133 8.01ZM7.903 16c3.498 0 5.904-1.655 5.904-8.01 0-6.335-2.406-7.99-5.903-7.99C4.407 0 2 1.655 2 8.01 2 14.344 4.407 16 7.904 16Z" />
+                            </svg>
+                        </div>
+
+                        <div id="controllerIndicator"
+                            class="text-gray-800 data-[controller-connected]:text-green-500 data-[controller-disconnected]:text-red-500 data-[controller-errors]:text-yellow-400"
+                            data-controller-disconnected>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-controller" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1v-1z" />
+                                <path
+                                    d="M3.051 3.26a.5.5 0 0 1 .354-.613l1.932-.518a.5.5 0 0 1 .62.39c.655-.079 1.35-.117 2.043-.117.72 0 1.443.041 2.12.126a.5.5 0 0 1 .622-.399l1.932.518a.5.5 0 0 1 .306.729c.14.09.266.19.373.297.408.408.78 1.05 1.095 1.772.32.733.599 1.591.805 2.466.206.875.34 1.78.364 2.606.024.816-.059 1.602-.328 2.21a1.42 1.42 0 0 1-1.445.83c-.636-.067-1.115-.394-1.513-.773-.245-.232-.496-.526-.739-.808-.126-.148-.25-.292-.368-.423-.728-.804-1.597-1.527-3.224-1.527-1.627 0-2.496.723-3.224 1.527-.119.131-.242.275-.368.423-.243.282-.494.575-.739.808-.398.38-.877.706-1.513.773a1.42 1.42 0 0 1-1.445-.83c-.27-.608-.352-1.395-.329-2.21.024-.826.16-1.73.365-2.606.206-.875.486-1.733.805-2.466.315-.722.687-1.364 1.094-1.772a2.34 2.34 0 0 1 .433-.335.504.504 0 0 1-.028-.079zm2.036.412c-.877.185-1.469.443-1.733.708-.276.276-.587.783-.885 1.465a13.748 13.748 0 0 0-.748 2.295 12.351 12.351 0 0 0-.339 2.406c-.022.755.062 1.368.243 1.776a.42.42 0 0 0 .426.24c.327-.034.61-.199.929-.502.212-.202.4-.423.615-.674.133-.156.276-.323.44-.504C4.861 9.969 5.978 9.027 8 9.027s3.139.942 3.965 1.855c.164.181.307.348.44.504.214.251.403.472.615.674.318.303.601.468.929.503a.42.42 0 0 0 .426-.241c.18-.408.265-1.02.243-1.776a12.354 12.354 0 0 0-.339-2.406 13.753 13.753 0 0 0-.748-2.295c-.298-.682-.61-1.19-.885-1.465-.264-.265-.856-.523-1.733-.708-.85-.179-1.877-.27-2.913-.27-1.036 0-2.063.091-2.913.27z" />
+                            </svg>
+                        </div>
+
+                        <div id="fpIndicator"
+                            class="text-gray-800 data-[alarm-one]:text-red-500 data-[alarm-two]:text-yellow-400 data-[alarm-three]:text-green-600"
+                            data-alarm-three>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-fingerprint" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.06 6.5a.5.5 0 0 1 .5.5v.776a11.5 11.5 0 0 1-.552 3.519l-1.331 4.14a.5.5 0 0 1-.952-.305l1.33-4.141a10.5 10.5 0 0 0 .504-3.213V7a.5.5 0 0 1 .5-.5Z" />
+                                <path
+                                    d="M6.06 7a2 2 0 1 1 4 0 .5.5 0 1 1-1 0 1 1 0 1 0-2 0v.332c0 .409-.022.816-.066 1.221A.5.5 0 0 1 6 8.447c.04-.37.06-.742.06-1.115V7Zm3.509 1a.5.5 0 0 1 .487.513 11.5 11.5 0 0 1-.587 3.339l-1.266 3.8a.5.5 0 0 1-.949-.317l1.267-3.8a10.5 10.5 0 0 0 .535-3.048A.5.5 0 0 1 9.569 8Zm-3.356 2.115a.5.5 0 0 1 .33.626L5.24 14.939a.5.5 0 1 1-.955-.296l1.303-4.199a.5.5 0 0 1 .625-.329Z" />
+                                <path
+                                    d="M4.759 5.833A3.501 3.501 0 0 1 11.559 7a.5.5 0 0 1-1 0 2.5 2.5 0 0 0-4.857-.833.5.5 0 1 1-.943-.334Zm.3 1.67a.5.5 0 0 1 .449.546 10.72 10.72 0 0 1-.4 2.031l-1.222 4.072a.5.5 0 1 1-.958-.287L4.15 9.793a9.72 9.72 0 0 0 .363-1.842.5.5 0 0 1 .546-.449Zm6 .647a.5.5 0 0 1 .5.5c0 1.28-.213 2.552-.632 3.762l-1.09 3.145a.5.5 0 0 1-.944-.327l1.089-3.145c.382-1.105.578-2.266.578-3.435a.5.5 0 0 1 .5-.5Z" />
+                                <path
+                                    d="M3.902 4.222a4.996 4.996 0 0 1 5.202-2.113.5.5 0 0 1-.208.979 3.996 3.996 0 0 0-4.163 1.69.5.5 0 0 1-.831-.556Zm6.72-.955a.5.5 0 0 1 .705-.052A4.99 4.99 0 0 1 13.059 7v1.5a.5.5 0 1 1-1 0V7a3.99 3.99 0 0 0-1.386-3.028.5.5 0 0 1-.051-.705ZM3.68 5.842a.5.5 0 0 1 .422.568c-.029.192-.044.39-.044.59 0 .71-.1 1.417-.298 2.1l-1.14 3.923a.5.5 0 1 1-.96-.279L2.8 8.821A6.531 6.531 0 0 0 3.058 7c0-.25.019-.496.054-.736a.5.5 0 0 1 .568-.422Zm8.882 3.66a.5.5 0 0 1 .456.54c-.084 1-.298 1.986-.64 2.934l-.744 2.068a.5.5 0 0 1-.941-.338l.745-2.07a10.51 10.51 0 0 0 .584-2.678.5.5 0 0 1 .54-.456Z" />
+                                <path
+                                    d="M4.81 1.37A6.5 6.5 0 0 1 14.56 7a.5.5 0 1 1-1 0 5.5 5.5 0 0 0-8.25-4.765.5.5 0 0 1-.5-.865Zm-.89 1.257a.5.5 0 0 1 .04.706A5.478 5.478 0 0 0 2.56 7a.5.5 0 0 1-1 0c0-1.664.626-3.184 1.655-4.333a.5.5 0 0 1 .706-.04ZM1.915 8.02a.5.5 0 0 1 .346.616l-.779 2.767a.5.5 0 1 1-.962-.27l.778-2.767a.5.5 0 0 1 .617-.346Zm12.15.481a.5.5 0 0 1 .49.51c-.03 1.499-.161 3.025-.727 4.533l-.07.187a.5.5 0 0 1-.936-.351l.07-.187c.506-1.35.634-2.74.663-4.202a.5.5 0 0 1 .51-.49Z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right side gauge -->
+                <div id="speedometer" class="">
+                    <canvas id="speedometer-id" class="pr-5"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="alt-tabDashboardContent" class="hidden">
+            <div class="grid grid-cols-1 place-items-center">
+                <div class="">
+                    <label>Speed MPH
+                        <label id="altSpeedMPH"></label>
+                    </label>
+                </div>
+                <div class="">
+                    <label>Speed KMH
+                        <label id="altSpeedKMH"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>RPM
+                        <label id="altRPM"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Target RPM
+                        <label id="altTargetRPM"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Alarm Indicator
+                        <label id="altAlarmIndicator"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Battery Indicator
+                        <label id="altBatteryIndicator"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>TemperatureIndicator
+                        <label id="altTemperatureIndicator"></label>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Power Tab Content -->
+    <div id="tabPowerContent" class="hidden text-white">
+        <div id="main-tabPowerContent" class="">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center">
+                <div class="">
+                    Power main
+                </div>
+
+            </div>
+        </div>
+
+        <div id="alt-tabPowerContent" class="hidden">
+            <div class="grid grid-cols-1 place-items-center">
+                <div class="">
+                    <label>Current
+                        <label id="altCurrent"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>KSI Volts
+                        <label id="altKSIVolts"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>UDC Volts
+                        <label id="altUDCVolts"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Capacity
+                        <label id="altCapacity"></label>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Motor Tab Content -->
+    <div id="tabMotorContent" class="hidden text-white">
+        <div id="main-tabMotorContent" class="">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center">
+
+                <div class="">
+                    Motor main
+                </div>
+            </div>
+        </div>
+
+        <div id="alt-tabMotorContent" class="hidden">
+            <div class="grid grid-cols-1 place-items-center">
+
+                <div class="">
+                    <label>Motor Current
+                        <label id="altMotorCurrent"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Motor Temperature
+                        <label id="altMotorTemperature"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Drive Unit Temperature
+                        <label id="altDriveUnitTemperature"></label>
+                    </label>
+                </div>
+
+                <div class="">
+                    <label>Accelerator Potentiometer Volts
+                        <label id="altAccelPotVolts"></label>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Options Tab Content -->
+    <div id="tabOptionsContent" class="hidden text-white">
+        Options
+
+        <div class="grid grid-cols-1 place-items-center text-lg font-bold text-gray-500">
+
+            <label>
+                Version
+                <label>BLE - 0.025</label>
+            </label>
+
+            <select class="hidden" id="color">
+                <option value="red">red</option>
+                <option value="green">green</option>
+                <option value="blue">blue</option>
+                <option value="yellow">yellow</option>
+            </select>
+
+            <label>
+                <input type="checkbox" id="textOption" />
+                Show Text
+            </label>
+
+            <label>
+                Screen Size:
+                <label id="screenSize"></label>
+            </label>
+
+
+            <h3 id="log" class="text-white float-left"></h3>
+
+        </div>
+    </div>
+
+    <!-- <canvas data-type="radial-gauge" data-width="50" data-height="300" data-units="Km/h" data-min-value="0"
+        data-max-value="220" data-major-ticks="0,20,40,60,80,100,120,140,160,180,200,220" data-minor-ticks="2"
+        data-stroke-ticks="true" data-highlights='[
+        {"from": 160, "to": 220, "color": "rgba(200, 50, 50, .75)"}
+    ]' data-color-plate="#fff" data-border-shadow-width="0" data-borders="false" data-needle-type="arrow"
+        data-needle-width="2" data-needle-circle-size="7" data-needle-circle-outer="true"
+        data-needle-circle-inner="false" data-animation-duration="1500" data-animation-rule="linear"></canvas> -->
+
+    <script src="js/gauge.min.js" type="text/javascript"></script>
+    <script src="js/js.cookie.min.js" type="text/javascript"></script>
+    <script src="js/crc.js" type="text/javascript"></script>
+    <script src="js/controls.js" type="text/javascript"></script>
+    <script src="js/tabs.js" type="text/javascript"></script>
+    <script src="js/cart-gauges.js" type="text/javascript"></script>
+    <script src="js/options.js" type="text/javascript"></script>
+    <script src="js/ble.js" type="text/javascript"></script>
+
+</body>
+
+</html>

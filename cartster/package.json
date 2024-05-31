@@ -1,0 +1,15 @@
+{
+  "name": "cartster",
+  "version": "1.0.0",
+  "description": "display cart controller data",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
+    "build:stamp": "npx watchtime('.') --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas-gauges": "^2.1.7"
+  }
+}
