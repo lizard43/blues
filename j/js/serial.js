@@ -36,7 +36,7 @@ async function disconnect() {
 
 async function writeRequest() {
     const writer = port.writable.getWriter();
-    const request = new Uint8Array([0x01, 0x02, 0x03, 0x04]);
+    const request = new Uint8Array([0xEB, 0x90, 0x01, 0x0C, 0x04, 0x01, 0x00, 0x0F, 0x00, 0xC0, 0xFE]);
     await writer.write(request);
     writer.releaseLock();
 }
