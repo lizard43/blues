@@ -8,7 +8,7 @@ let output = document.getElementById('output');
 async function connect() {
     try {
         port = await navigator.serial.requestPort();
-        await port.open({ baudRate: 9600 });
+        await port.open({ baudRate: 19200 });
 
         document.getElementById('connect').disabled = true;
         document.getElementById('disconnect').disabled = false;
